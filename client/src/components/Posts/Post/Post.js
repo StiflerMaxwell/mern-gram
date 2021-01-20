@@ -101,7 +101,7 @@ const Post= ({post,setCurrentId}) => {
           <Button onClick={handleClose} color="primary">
             No
           </Button>
-          <Button onClick={handleDelete} color="Secondary" autoFocus>
+          <Button onClick={handleDelete} color="secondary" autoFocus>
             Yes
           </Button>
         </DialogActions>
