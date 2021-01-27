@@ -3,14 +3,12 @@ import { AppBar,Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-
 import postimg from '../../images/post.png';
 import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  console.log(user);
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -20,9 +18,18 @@ const Navbar = () => {
   useEffect(() => {
 
     const token = user?.token;
-
     //JWT...later 
     setUser(JSON.parse(localStorage.getItem('profile')));
+
+
+    if(token)
+    {
+      const decodedToken = decode(token);
+
+      if(decodedToken.exp * 1000 <new Date().getTime())  
+      logout();
+
+    }
   },[location]);
 
   const logout = () => {
