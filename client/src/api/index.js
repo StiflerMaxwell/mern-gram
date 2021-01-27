@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-// heroku server
-//const url = 'https://mern-gram.herokuapp.com/posts';
+
+// zeet server
+const API = axios.create({baseURL: 'https://mern-gram.zeet.app'})
+
+
 //Local
+//const API = axios.create({baseURL: 'http://localhost:5000'})
 
-
-const API = axios.create({baseURL: 'http://localhost:5000'})
 
  
 API.interceptors.request.use((req) => {
