@@ -6,4 +6,5 @@ export const LIKE = 'LIKE';
 
 
 export const AUTH = 'AUTH';
+export const ERROR = 'ERROR';
 export const LOGOUT = 'LOGOUT';

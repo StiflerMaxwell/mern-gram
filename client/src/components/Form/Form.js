@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
@@ -64,7 +65,15 @@ const Form= ({ currentId, setCurrentId }) => {
           <TextField name="title" variant="outlined" required label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
           <TextField name="message" variant="outlined" required label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
           <TextField name="tags" variant="outlined" required label="Tags (coma separated)" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
-          <div className={classes.fileInput}><FileBase required type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
+          <div className={classes.fileInput}>
+            <FileBase  required  accept="image/*"   className={classes.inputlabel} id="contained-button-file" type="file"   multiple={false}  onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />        
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" color="primary" component="span" startIcon={<CloudUploadIcon />}>
+              Upload
+            </Button>
+          </label>
+            
+            </div>
           <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit { currentId ? 'Editing' :'Creating'}</Button>
           <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>ClearForm</Button>
         </form>

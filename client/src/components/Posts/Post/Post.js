@@ -71,7 +71,7 @@ const Post= ({post,setCurrentId}) => {
     <Card className={classes.card}>
       <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
       <div className={classes.overlay}>
-      <Avatar  alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+      <Avatar  alt={post.creatorname} src={post.creatorname.charAt(0)}>{post.creatorname.charAt(0)}</Avatar>
         <Typography variant="h6">{post.creatorname}</Typography>
         <Typography variant="body2">{moment(post.createdAt).locale('zh-cn').fromNow()}</Typography>
       </div>

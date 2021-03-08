@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Avatar, Button, Paper,Box,  Grid, TextField, Typography, Container } from '@material-ui/core';
+import React, { useState,useEffect} from 'react';
+import { useDispatch ,useSelector} from 'react-redux';
+import { Avatar, Button, Paper,Box,  Grid, TextField,CircularProgress, Typography, Container } from '@material-ui/core';
+ 
 import {GoogleLogin} from "react-google-login";
 import { Switch, useHistory } from 'react-router-dom';
 import useStyles from './styles';
@@ -10,7 +11,7 @@ import Input from './Input';
 import Icon from './Icon';
 
 
-const initialState = {firstName: '',lastName: '', email:'', password:'', confirmPassword:'' };
+const initialState = {firstName: '',lastName: '', email:'', password:'', confirmPassword:''};
 
 const Auth = () => {
     const classes = useStyles();
@@ -19,20 +20,43 @@ const Auth = () => {
     const [showPassword,setShowPassword] = useState(false);
     const [formdata,setFormData] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
-  
+    const [loginError, setLoginError] = useState(false);
+    const [errormessage,setErrormessage] = useState('');
+
+
+    const [loading,setLoading] = useState(false);
+
+    const isLoginError = useSelector(state => state.auth.errors)
+
+    
+    //const IsloginError = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
+ 
+    
+
+    
+    useEffect(() => {
+        if (isLoginError) setErrormessage(isLoginError.data.message);
+      }, [isLoginError]);
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        setLoading(true);
         if(isSignup) {
             dispatch(signup(formdata,history))
         }
         else {
-            dispatch(signin(formdata,history))
-
+            dispatch(signin(formdata,history)) 
+   
+            setLoginError(true)
         }
 
-        console.log(formdata);
+        //console.log(formdata);
+        console.log(isLoginError);
     };
    
+    
     const handleChange = (e) => {
         setFormData({...formdata, [e.target.name]: e.target.value});
     };
@@ -73,7 +97,7 @@ const Auth = () => {
              <LockOutlinedIcon />
             </Avatar>
             <Typography variant="h5">{isSignup ? 'Sign Up' : 'Sign In'}</Typography>
-            <form className={classes.form}   onSubmit={handleSubmit}   >
+            <form className={classes.form}     onSubmit={handleSubmit}   >
                 <Grid spacing ={3} container >
                     {
                     isSignup && (
@@ -83,15 +107,18 @@ const Auth = () => {
                         </>
                     )}
 
-                        <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+                        <Input loginError = {loginError}   name="email" label="Email Address" handleChange={handleChange} type="email" />
+                        <Input   loginError = {loginError}   errormessage = {errormessage}    
+                         name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                         { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
- 
+                       
+                         
                 </Grid>
-               
+            
                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                     { isSignup ? 'Sign Up' : 'Sign In' }
                 </Button>
+                {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
                 <GoogleLogin 
                     clientId="1095827748467-b1l72q3hc2ib39o1iulpdemi5r6h6spg.apps.googleusercontent.com"
                     render={(rednderProps) => (

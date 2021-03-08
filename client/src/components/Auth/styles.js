@@ -27,4 +27,11 @@ export default makeStyles((theme) => ({
   googleButton: {
     marginBottom: theme.spacing(2),
   },
+  buttonProgress: {
+    position: 'absolute',
+     
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
 }));
