@@ -118,7 +118,7 @@ const Auth = () => {
                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                     { isSignup ? 'Sign Up' : 'Sign In' }
                 </Button>
-                {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+               {/*  {loading && <CircularProgress size={24} className={classes.buttonProgress} />} */}
                 <GoogleLogin 
                     clientId="1095827748467-b1l72q3hc2ib39o1iulpdemi5r6h6spg.apps.googleusercontent.com"
                     render={(rednderProps) => (
