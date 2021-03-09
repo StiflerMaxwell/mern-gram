@@ -34,7 +34,8 @@ export const signup = (formData, history) => async(dispatch) => {
          history.push('/');
     }
     catch(error){
-
+        const data =  error.response ;
+        dispatch({type: ERROR, data});
         console.log(error);
 
     }

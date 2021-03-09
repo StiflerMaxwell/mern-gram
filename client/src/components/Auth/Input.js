@@ -16,17 +16,25 @@ const Input = ({ name, handleChange, label, half, autoFocus, type, handleShowPas
       autoFocus={autoFocus}
       type={type}
       disabled={loading}
+      inputProps={name === 'password' &&{
+        minLength: 6
+      }}
       InputProps={name === 'password' ? {
+
+        
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={handleShowPassword}>
               {type === 'password' ? <Visibility /> : <VisibilityOff />}
             </IconButton>
           </InputAdornment>
-        ),
-      } : null}
+        ),       
+        
+      } : null  
+        
+       }
       error = {loginError? true : false}
-      helperText= {name === 'password' && loginError ? errormessage  :null }
+      helperText= { loginError ? errormessage  :null } 
     />
   </Grid>
 );

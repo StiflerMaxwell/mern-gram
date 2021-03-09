@@ -28,36 +28,40 @@ const Auth = () => {
 
     const isLoginError = useSelector(state => state.auth.errors)
 
-    
-    //const IsloginError = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
- 
-    
-
-    
+     
     useEffect(() => {
-        if (isLoginError) setErrormessage(isLoginError.data.message);
+
+        if (isLoginError) 
+        {
+
+            console.log(isLoginError);
+        setLoginError(true);
+        setErrormessage(isLoginError.data.message);
+        }
       }, [isLoginError]);
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        setLoading(true);
+        //setLoading(true);
         if(isSignup) {
             dispatch(signup(formdata,history))
         }
         else {
             dispatch(signin(formdata,history)) 
-   
-            setLoginError(true)
+     
         }
 
         //console.log(formdata);
-        console.log(isLoginError);
+        //console.log(isLoginError);
     };
    
     
     const handleChange = (e) => {
+        setLoginError (false);  
+        setErrormessage('');
+
         setFormData({...formdata, [e.target.name]: e.target.value});
     };
 
@@ -108,9 +112,9 @@ const Auth = () => {
                     )}
 
                         <Input loginError = {loginError}   name="email" label="Email Address" handleChange={handleChange} type="email" />
-                        <Input   loginError = {loginError}   errormessage = {errormessage}    
+                        <Input   loginError = {loginError}   errormessage = {errormessage}  
                          name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
-                        { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
+                        { isSignup && <Input name="confirmPassword" loginError = {loginError}   errormessage = {errormessage} label="Repeat Password" handleChange={handleChange} type="password" /> }
                        
                          
                 </Grid>
