@@ -44,11 +44,11 @@ const Home = () => {
         </Grid>
   </Container>
   </Box>
-  <Zoom in  timeout={500} >
+ {/*  <Zoom in  timeout={500} >
   <Fab color="secondary" aria-label="add" className="fixed" >
         <AddIcon />
       </Fab>
-  </Zoom>
+  </Zoom> */}
 
 
 
